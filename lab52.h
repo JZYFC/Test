@@ -39,7 +39,7 @@ void init_list(GoodsList **pL);
 void destory_list(GoodsList **pL);
 void destory_list_and_file(GoodsList **pL);
 int save_to_file(GoodsList *L);
-void output_one_item(GoodsList *L);
+void output_one_item(GoodsList *p);
 void output_all_items(GoodsList *L);
 bool insert_item(GoodsList *L, GoodsInfo item, int choice);
 bool delete_item(GoodsList *L, char* goods_id);
