@@ -9,7 +9,7 @@
 
 #endif //TEST_LAB52_H
 
-#define GOODS_FILE_NAME "goodsinfo.txt"
+#define GOODS_FILE_NAME "../goodsinfo.txt"
 
 #define MAX_ID_LEN 30
 
@@ -18,6 +18,7 @@
 #define MAX_PRICE_LEN 30
 
 #define MAX_DISCOUNT_LEN 30
+
 typedef struct {
     char goods_id[MAX_ID_LEN];
     char goods_name[MAX_NAME_LEN];

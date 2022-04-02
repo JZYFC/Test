@@ -13,12 +13,10 @@ int function(int a, int b, int c) {
 }
 
 int sub(int a, int b, int c) {
-    int ret = 0;
     // AT&T 中， 计算完的值放右边的寄存器
-    __asm__ volatile(
-    "mov %%rax, %%rdx;\n\t"
-    "addq %%rdx, %%rbx;\n\t"
-    "subq %%rcx, %%rbx;\n\t"
+    __asm__ volatile("mov %%rax, %%rdx;\n\t"
+                     "addq %%rdx, %%rbx;\n\t"
+                     "subq %%rcx, %%rbx;\n\t"
     :"=b"(ret)
     :"a"(a), "b"(b), "c"(c)
     :"%rdx"

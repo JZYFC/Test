@@ -3,11 +3,47 @@
 #include <string.h>
 #include "lab52.h" // 请不要删除本行头文件，否则检查不通过
 
-extern int CurrentCnt; // 请不要删除本行的全局变量声明，否则检查不通过
+int CurrentCnt; // 请不要删除本行的全局变量声明，否则检查不通过
+
+int read_line(char str[], int n) {}
+
+int save_to_file(GoodsList *L) {
+    FILE *file = fopen(GOODS_FILE_NAME, "w+");
+    int cnt = 0;
+    if (file == NULL) return cnt;
+    if (L->next == NULL) {
+        fclose(file);
+        return cnt;
+    }
+    L = L->next;
+    while (L != NULL) {
+        fprintf(file, "%s %s %d %s %d %d\n", L->data.goods_id, L->data.goods_name, L->data.goods_price,
+                L->data.goods_discount, L->data.goods_amount, L->data.goods_remain);
+        L = L->next;
+        cnt++;
+    }
+    fclose(file);
+    fflush(file);
+    return cnt;
+}
 
 void init_list(GoodsList **pL) {
-    *pL = (GoodsList *) malloc(sizeof(GoodsList));
-
+    *pL = (GoodsList *) calloc(1, sizeof(GoodsList));
+    FILE *file = fopen(GOODS_FILE_NAME, "a+");
+    if (file == NULL) return;
+    GoodsList *current = *pL;
+    GoodsList *tmp = (GoodsList *) calloc(1, sizeof(GoodsList));
+    if (tmp == NULL) return;
+    while (fscanf(file, "%s %s %d %s %d %d ", tmp->data.goods_id, tmp->data.goods_name, &(tmp->data.goods_price),
+                  tmp->data.goods_discount, &(tmp->data.goods_amount), &(tmp->data.goods_remain)) != -1) {
+        CurrentCnt++;
+        current->next = tmp;
+        current = tmp;
+        tmp = (GoodsList *) calloc(1, sizeof(GoodsList));
+        if (tmp == NULL) return;
+    }
+//    fflush(file);
+    fclose(file);
 }
 
 bool insert_item(GoodsList *L, GoodsInfo item, int choice) {

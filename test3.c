@@ -6,6 +6,8 @@ int main(void) {
     int input;
     GoodsList *pList;
     init_list(&pList);
+    save_to_file(pList);
+    exit(0);
     while (1) {
         puts("1.显示所有商品的信息\n"
              "2.修改某个商品的信息\n"
